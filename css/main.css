@@ -3,20 +3,19 @@
 body {
     background-image: ;
     background-size: 100vw;
-    background-repeat: no-repeat;
     background-attachment: fixed local;
+    background: no-repeat center center fixed;
 }
 
 .screen {
     display: block;
-    width: 40vw;
+    width: 60vw;
     margin: 0 auto;
     background-color: rgba(0, 0, 0, 0.4);
     border-radius: 3vw;
     vertical-align: middle;
     margin-top: 15vh;
     margin-bottom: 5vh;
-    
 }
 
 h1,
@@ -81,7 +80,32 @@ h2 {
     transition: background 0.5s;
 }
 
-
+@media only screen and (max-width: 768px) {
+    .screen {
+        display: block;
+        width: 90%;
+        margin: 0 auto;
+        background-color: rgba(0, 0, 0, 0.4);
+        border-radius: 3vw;
+        vertical-align: middle;
+        margin-top: 5vh;
+        margin-bottom: 5vh;
+    }
+    h1 {
+        font-size: 5vmax;
+    }
+    h2 {
+        font-size: 3.5vmax;
+    }
+    #temp,
+    #location,
+    #wind {
+        font-size: 3.5vmax;
+    }
+    #icon img {
+        width: 20vh;
+    }
+}
 
 
 /*---------- Clear Fix 001 ----------*/

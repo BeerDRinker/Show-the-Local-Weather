@@ -124,27 +124,32 @@ if (navigator.geolocation) {
 
             /*Metric - Imperial conversion*/
 
+            var celsium = true;
 
             $('#button').click(function () {
 
-                var farng = (temp * 1.8) + 32 + " &ordm;F";
+                if (celsium) {
 
-                $('#temp').html(farng);
+                    var farng = (temp * 1.8) + 32 + " &ordm;F";
 
-                $('#wind').html((windSpeed * 1.6) + "m/h" + " " + windNames);
+                    $('#temp').html(farng);
+
+                    $('#wind').html((windSpeed * 1.6) + "m/h" + " " + windNames);
+
+                    celsium = false;
+
+                } else {
+
+                    $('#temp').html(temp + " &ordm;С");
+
+                    $('#wind').html(windSpeed + "km/h" + " " + windNames);
+
+                    celsium = true;
+
+                }
 
             });
-
-            $('#button').click(function () {
-
-                $('#temp').html(temp + " &ordm;С");
-
-                $('#wind').html(windSpeed + "km/h" + " " + windNames);
-
-            });
-
 
         });
     });
 };
-
