@@ -130,11 +130,11 @@ if (navigator.geolocation) {
 
                 if (celsium) {
 
-                    var farng = (temp * 1.8) + 32 + " &ordm;F";
+                    var farng = Math.round((temp * 1.8) + 32) + " &ordm;F";
 
                     $('#temp').html(farng);
 
-                    $('#wind').html((windSpeed * 1.6) + "m/h" + " " + windNames);
+                    $('#wind').html(Math.round((windSpeed * 1.6)) + "m/h" + " " + windNames);
 
                     celsium = false;
 
