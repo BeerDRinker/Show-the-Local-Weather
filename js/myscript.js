@@ -1,22 +1,18 @@
 /* Coded by Paliy Rostyslav. e-mail: paliy1984@gmail.com. skype: ros.coprandos */
 
 
-/*Getting geolocation*/
+window.onload = function () {
 
+    /*Getting geolocation*/
 
-if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function (position) {
+    var googleGeoApi = 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDRi9xZ7uZqeyvcJCOPKdDVwdhl3st365g';
+    var url = "http://api.openweathermap.org/data/2.5/weather?";
+    var watherApiID = "&APPID=0d0fa60e450b741988e81637500167e7";
+    var units = "&units=metric";
 
-        var lat = position.coords.latitude;
-        var lon = position.coords.longitude;
+    $.post(googleGeoApi, function (data) {
 
-        /*Sending JSON request*/
-
-        var url = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&APPID=f15a83fe29b2a5f5cfce46c6f54c36db&units=metric";
-
-
-        /*Gettinf data from JSON request*/
-
+        url = url + "lat=" + data.location.lat + "&lon=" + data.location.lng + watherApiID + units;
 
         $.getJSON(url, function (json) {
 
@@ -147,9 +143,7 @@ if (navigator.geolocation) {
                     celsium = true;
 
                 }
-
             });
-
         });
     });
-};
+}
