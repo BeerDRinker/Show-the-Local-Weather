@@ -3,147 +3,156 @@
 
 window.onload = function () {
 
-    /*Getting geolocation*/
+
 
     var googleGeoApi = 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDRi9xZ7uZqeyvcJCOPKdDVwdhl3st365g';
-    var url = "http://api.openweathermap.org/data/2.5/weather?";
-    var watherApiID = "&APPID=0d0fa60e450b741988e81637500167e7";
-    var units = "&units=metric";
+    var url = "https://api.darksky.net/forecast";
+    var watherApiID = "/dd8a39fda931c81a68639fe827003345";
+    var units = "?units=si";
+
+    /*Getting geolocation*/
 
     $.post(googleGeoApi, function (data) {
 
-        url = url + "lat=" + data.location.lat + "&lon=" + data.location.lng + watherApiID + units;
+        url = url + watherApiID + "/" + data.location.lat + "," + data.location.lng + units;
 
-        $.getJSON(url, function (json) {
+        /*Getting wether*/
 
-            var temp = Math.round(json.main.temp);
-            var country = json.sys.country;
-            var city = json.name;
-            var description = json.weather[0].description;
-            var icon = "http://openweathermap.org/img/w/" + json.weather[0].icon + ".png";
-            var windSpeed = json.wind.speed;
-            var windDegree = json.wind.deg;
+        $.ajax({
+            url,
+            dataType: "jsonp",
+            success: function (data) {
 
+                var temp = Math.round(data.currently.temperature);
+                var country = data.timezone;
+                var description = data.currently.summary;
+                var icon = data.currently.icon;
+                var windSpeed = data.currently.windSpeed;
+                var windDegree = data.currently.windBearing;
 
-            /*Setting wind direction*/
 
+                var windNames;
 
-            var windNames;
+                if (windDegree >= 330 && windDegree <= 29) {
 
-            if (windDegree >= 330 && windDegree <= 29) {
+                    windNames = "North";
 
-                windNames = "North";
+                } else if (windDegree >= 30 && windDegree <= 59) {
 
-            } else if (windDegree >= 30 && windDegree <= 59) {
+                    windNames = "Northeast";
 
-                windNames = "Northeast";
+                } else if (windDegree >= 60 && windDegree <= 119) {
 
-            } else if (windDegree >= 60 && windDegree <= 119) {
+                    windNames = "East";
 
-                windNames = "East";
+                } else if (windDegree >= 120 && windDegree <= 149) {
 
-            } else if (windDegree >= 120 && windDegree <= 149) {
+                    windNames = "Southeast";
 
-                windNames = "Southeast";
+                } else if (windDegree >= 150 && windDegree <= 209) {
 
-            } else if (windDegree >= 150 && windDegree <= 209) {
+                    windNames = "South";
 
-                windNames = "South";
+                } else if (windDegree >= 210 && windDegree <= 239) {
 
-            } else if (windDegree >= 210 && windDegree <= 239) {
+                    windNames = "Southwest";
 
-                windNames = "Southwest";
+                } else if (windDegree >= 240 && windDegree <= 299) {
 
-            } else if (windDegree >= 240 && windDegree <= 299) {
+                    windNames = "West";
 
-                windNames = "West";
+                } else windNames = "Northwest";
 
-            } else windNames = "Northwest";
 
 
-            /* Setting BG image */
 
+                if (icon == "clear-day" || icon == "clear-night") {
 
-            if (description == "clear sky" || description == "few clouds") {
+                    $('body').css('background-image', 'url(../img/clear.jpg)')
 
-                $('body').css('background-image', 'url(../img/clear.jpg)')
+                    $('#icon img').attr('src', '../img/clear-day.png');
 
-            } else if (description == "scattered clouds" || description == "broken clouds") {
+                } else if (icon == "cloudy" || icon == "partly-cloudy-day") {
 
-                $('body').css('background-image', 'url(../img/cloudy.jpg)')
+                    $('body').css('background-image', 'url(../img/cloudy.jpg)')
 
-            } else if (description == "shower rain" || description == "rain") {
+                    $('#icon img').attr('src', '../img/partly-cloudy-day.png');
 
-                $('body').css('background-image', 'url(../img/rain.jpg)')
+                } else if (icon == "rain" || icon == "sleet") {
 
-            } else if (description == "thunderstorm") {
+                    $('body').css('background-image', 'url(../img/rain.jpg)')
 
-                $('body').css('background-image', 'url(../img/thunderstorm.jpg)')
+                    $('#icon img').attr('src', '../img/rain.png');
 
-            } else if (description == "snow") {
+                } else if (icon == "thunderstorm") {
 
-                $('body').css('background-image', 'url(../img/winter.jpg)')
+                    $('body').css('background-image', 'url(../img/thunderstorm.jpg)')
 
-            } else
+                    $('#icon img').attr('src', '../img/thunderstorm.png');
 
-                $('body').css('background-image', 'url(../img/mist.jpg)')
+                } else if (icon == "snow") {
 
+                    $('body').css('background-image', 'url(../img/winter.jpg)')
 
-            /*Setting BG image if Realy Hot*/
+                    $('#icon img').attr('src', '../img/snow.png');
 
-            if (temp > 30) {
+                } else if ((icon == "fog")) {
 
-                $('body').css('background-image', 'url(../img/hot.jpg)')
-            }
+                    $('body').css('background-image', 'url(../img/mist.jpg)')
 
-            /*Setting BG image if negative temp*/
-
-            if (temp < 0) {
-
-                $('body').css('background-image', 'url(../img/winter.jpg)')
-            }
-
-
-            /*Applaying data to the page*/
-
-
-            $('#icon img').attr('src', icon);
-
-            $('#location').html(country + " " + city);
-
-
-            $('#temp').html(temp + " &ordm;С");
-
-
-            $('#wind').html(windSpeed + "km/h" + " " + windNames);
-
-
-            /*Metric - Imperial conversion*/
-
-            var celsium = true;
-
-            $('#button').click(function () {
-
-                if (celsium) {
-
-                    var farng = Math.round((temp * 1.8) + 32) + " &ordm;F";
-
-                    $('#temp').html(farng);
-
-                    $('#wind').html(Math.round((windSpeed * 1.6)) + "m/h" + " " + windNames);
-
-                    celsium = false;
-
-                } else {
-
-                    $('#temp').html(temp + " &ordm;С");
-
-                    $('#wind').html(windSpeed + "km/h" + " " + windNames);
-
-                    celsium = true;
-
+                    $('#icon img').attr('src', '../img/fog.png');
                 }
-            });
+
+
+
+                if (temp > 30) {
+
+                    $('body').css('background-image', 'url(../img/hot.jpg)')
+                }
+
+
+                if (temp < 0) {
+
+                    $('body').css('background-image', 'url(../img/winter.jpg)')
+                }
+
+
+                $('#location').html(country);
+
+
+                $('#temp').html(temp + " &ordm;С");
+
+
+                $('#wind').html(windSpeed + "km/h" + " " + windNames);
+
+
+
+                var celsium = true;
+
+                $('#button').click(function () {
+
+                    if (celsium) {
+
+                        var farng = Math.round((temp * 1.8) + 32) + " &ordm;F";
+
+                        $('#temp').html(farng);
+
+                        $('#wind').html(Math.round((windSpeed * 1.6)) + "m/h" + " " + windNames);
+
+                        celsium = false;
+
+                    } else {
+
+                        $('#temp').html(temp + " &ordm;С");
+
+                        $('#wind').html(windSpeed + "km/h" + " " + windNames);
+
+                        celsium = true;
+
+                    }
+                });
+
+            }
         });
     });
 }

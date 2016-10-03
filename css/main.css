@@ -1,9 +1,8 @@
 /* Coded by Paliy Rostyslav. e-mail: paliy1984@gmail.com. skype: ros.coprandos  !!!SYLB!!! */
 
 body {
-    background-image: ;
+    background-image: url();
     background-size: 100vw;
-    background-attachment: fixed local;
     background: no-repeat center center fixed;
 }
 
@@ -43,7 +42,7 @@ h2 {
 }
 
 #temp {
-    padding-bottom: 30px;
+    padding: 20px 0 30px;
 }
 
 #temp,
