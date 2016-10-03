@@ -68,39 +68,39 @@ window.onload = function () {
 
                 if (icon == "clear-day" || icon == "clear-night") {
 
-                    $('body').css('background-image', 'url(../img/clear.jpg)')
+                    $('body').css('background-image', 'url(./img/clear.jpg)')
 
-                    $('#icon img').attr('src', '../img/clear-day.png');
+                    $('#icon img').attr('src', './img/clear-day.png');
 
                 } else if (icon == "cloudy" || icon == "partly-cloudy-day") {
 
-                    $('body').css('background-image', 'url(../img/cloudy.jpg)')
+                    $('body').css('background-image', 'url(./img/cloudy.jpg)')
 
-                    $('#icon img').attr('src', '../img/partly-cloudy-day.png');
+                    $('#icon img').attr('src', './img/partly-cloudy-day.png');
 
                 } else if (icon == "rain" || icon == "sleet") {
 
-                    $('body').css('background-image', 'url(../img/rain.jpg)')
+                    $('body').css('background-image', 'url(./img/rain.jpg)')
 
-                    $('#icon img').attr('src', '../img/rain.png');
+                    $('#icon img').attr('src', './img/rain.png');
 
                 } else if (icon == "thunderstorm") {
 
-                    $('body').css('background-image', 'url(../img/thunderstorm.jpg)')
+                    $('body').css('background-image', 'url(./img/thunderstorm.jpg)')
 
-                    $('#icon img').attr('src', '../img/thunderstorm.png');
+                    $('#icon img').attr('src', './img/thunderstorm.png');
 
                 } else if (icon == "snow") {
 
-                    $('body').css('background-image', 'url(../img/winter.jpg)')
+                    $('body').css('background-image', 'url(./img/winter.jpg)')
 
-                    $('#icon img').attr('src', '../img/snow.png');
+                    $('#icon img').attr('src', './img/snow.png');
 
                 } else if ((icon == "fog")) {
 
-                    $('body').css('background-image', 'url(../img/mist.jpg)')
+                    $('body').css('background-image', 'url(./img/mist.jpg)')
 
-                    $('#icon img').attr('src', '../img/fog.png');
+                    $('#icon img').attr('src', './img/fog.png');
                 }
 
 
